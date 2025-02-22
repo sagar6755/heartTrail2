@@ -52,23 +52,31 @@
     <script>
         const bodyEl = document.querySelector('body');
 
-        bodyEl.addEventListener('touchmove', (event) => {
-            // console.log('moved');
-            const xPos = event.offsetX;
-            const yPos = event.offsetY;
-            const spanEl = document.createElement('span');
-            spanEl.style.left = xPos + 'px';
-            spanEl.style.top = yPos + 'px';
-            const size = Math.random()*100;
-            spanEl.style.width = size + 'px';
-            spanEl.style.height = size + 'px';
-            bodyEl.appendChild(spanEl);
-            setTimeout(()=>{
-                spanEl.remove();
-            },3000);
+function createHeart(xPos, yPos) {
+    const spanEl = document.createElement('span');
+    spanEl.style.left = xPos + 'px';
+    spanEl.style.top = yPos + 'px';
+    const size = Math.random() * 100;
+    spanEl.style.width = size + 'px';
+    spanEl.style.height = size + 'px';
+    bodyEl.appendChild(spanEl);
 
-           
-        })
+    setTimeout(() => {
+        spanEl.remove();
+    }, 3000);
+}
+
+// Mouse move event (for desktop)
+bodyEl.addEventListener('mousemove', (event) => {
+    createHeart(event.clientX, event.clientY);
+});
+
+// Touch move event (for mobile)
+bodyEl.addEventListener('touchmove', (event) => {
+    const touch = event.touches[0]; // Get the first touch point
+    createHeart(touch.clientX, touch.clientY);
+});
+
 
     </script>
 </body>
